@@ -1,0 +1,641 @@
+{
+  "name": "Slashdot-Tweet",
+  "nodes": [
+    {
+      "parameters": {
+        "text": "={{ $json.link && $json.title ? `\"${$json.content.slice(0,240)}...\"` : $json.content.slice(0,280) }}\n\n{{ $json.link? \"Link below\": \"\" }}\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        -64
+      ],
+      "id": "db8030b0-47d8-4cba-b691-f33505005192",
+      "name": "Create Tweet",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "RI5oGEoMtgDdOw0E",
+          "name": "X account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1488,
+        -64
+      ],
+      "id": "a3cfda57-b2c2-4d52-9a3c-5bf2b8616522",
+      "name": "Wait some time",
+      "webhookId": "4a97eabc-37c1-4f4e-848f-f02a765473f5"
+    },
+    {
+      "parameters": {
+        "person": "K9abfFSC7U",
+        "text": "={{ $json.link && $json.title ? `\"${$json.content.slice(0,260)}...\"` : $json.content }}",
+        "shareMediaCategory": "={{ $json.link && $json.title ? \"ARTICLE\" : \"NONE\" }}",
+        "additionalFields": {
+          "originalUrl": "={{ $json.link }}",
+          "title": "={{ $json.title }}"
+        }
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        -256
+      ],
+      "id": "df02834c-43da-4f87-becf-e7e1aa61f39f",
+      "name": "Create a post",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "qvXSS8x3K9dVmUtF",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "98fdec9f-3ad4-4123-ae35-4ec07ff0ce37",
+              "leftValue": "={{ $json.published }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        192
+      ],
+      "id": "a3bb3ac8-97eb-49e9-b1bd-b5f82ed96045",
+      "name": "Discard already published"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1ue_4InOkCpQba4LGl08xSJyIuwfZfjvhVlj5wsmlcV8",
+          "mode": "list",
+          "cachedResultName": "n8n-social-media-workflow",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ue_4InOkCpQba4LGl08xSJyIuwfZfjvhVlj5wsmlcV8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ue_4InOkCpQba4LGl08xSJyIuwfZfjvhVlj5wsmlcV8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "published": "1"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "link",
+              "displayName": "link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "published",
+              "displayName": "published",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1280,
+        192
+      ],
+      "id": "c544ca92-0566-4e01-9035-febeb0fb2647",
+      "name": "Mark row as published",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yXWVRSHovSFYoMKy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Post using Google Sheets\n",
+        "height": 240,
+        "width": 944
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        256,
+        128
+      ],
+      "typeVersion": 1,
+      "id": "07ee3307-d87f-4500-8b14-067ea454e8e3",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Social media",
+        "height": 416,
+        "width": 960
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1200,
+        -320
+      ],
+      "typeVersion": 1,
+      "id": "88364677-5008-4c00-8c0a-a105dc4cc5fe",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 60,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "feedUrl": "https://rss.slashdot.org/Slashdot/slashdotMain"
+      },
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        0
+      ],
+      "id": "05c5ad4a-cb80-43c2-b242-0b7322bbc509",
+      "name": "Slashdot RSS Feed Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "67abaa04-59ca-4958-a3c8-f6755a67fda8",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "python",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "b94ad436-9b9b-4f3d-bae7-8e0da520f6cf",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "javascript",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "1d0c1f77-fe3b-40ea-bfa8-eeef98927181",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "typescript",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "ed2e0f68-1359-4b09-a861-55e0cd53dfa4",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "linux",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "77b62f12-f885-42ed-ab20-60fa5cc14d95",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "golang",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "0ad35f44-9352-4455-81d7-f090be4e220c",
+              "leftValue": "={{ $json.content}}",
+              "rightValue": "AI",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "5ab5659b-f03c-4666-a75b-c26d4c028bd2",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "programming",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        0
+      ],
+      "id": "9df69aa5-4fdb-4eb1-8f0d-83ed1f88cfdb",
+      "name": "If relevant content"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "02042b7d-31ea-4738-98fb-8e3561f3882a",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "python",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "d50862be-4753-412d-9d82-7b6cab164e0a",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "programming",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "d3611372-a912-4904-916d-1006bb3720a0",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "javascript",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "f691d32a-61cc-469c-89c1-5ca03c7e38c7",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "golang",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "38e8098c-3753-4a29-933b-618ccb61bd56",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "linux",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "0a5e014d-b257-4cc9-8635-15cb37b76b37",
+              "leftValue": "={{ $json.content.toLowerCase() }}",
+              "rightValue": "typescript",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "6188ef44-4ca2-458f-8561-255034fe4467",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "AI",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        384,
+        -16
+      ],
+      "id": "3acf324c-e2ac-4359-b0ae-7b96aa558ce7",
+      "name": "Filter relevant content"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ue_4InOkCpQba4LGl08xSJyIuwfZfjvhVlj5wsmlcV8",
+          "mode": "list",
+          "cachedResultName": "n8n-social-media-workflow",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ue_4InOkCpQba4LGl08xSJyIuwfZfjvhVlj5wsmlcV8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ue_4InOkCpQba4LGl08xSJyIuwfZfjvhVlj5wsmlcV8/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        384,
+        192
+      ],
+      "id": "c30f1a9e-6a68-4ec3-aa8a-fbc8159ac132",
+      "name": "Read Content to Post Google Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yXWVRSHovSFYoMKy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        816,
+        192
+      ],
+      "id": "01b60659-d9f0-478f-9e8b-7f3e6216e928",
+      "name": "Limit to one"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.googleSheet = true;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        192
+      ],
+      "id": "33955d18-ad43-46cc-bb9f-388f5300c18c",
+      "name": "Add googleSheet Property"
+    },
+    {
+      "parameters": {
+        "text": "={{ $('Filter relevant content').item.json.link }}",
+        "additionalFields": {
+          "inReplyToStatusId": {
+            "__rl": true,
+            "value": "={{ $json.id }}",
+            "mode": "id"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1696,
+        -64
+      ],
+      "id": "b10c8499-a601-4ea5-8ef2-fcbac7e06ef9",
+      "name": "Reply post with link",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "RI5oGEoMtgDdOw0E",
+          "name": "X account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Create Tweet": {
+      "main": [
+        [
+          {
+            "node": "Wait some time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait some time": {
+      "main": [
+        [
+          {
+            "node": "Reply post with link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post": {
+      "main": [
+        []
+      ]
+    },
+    "Discard already published": {
+      "main": [
+        [
+          {
+            "node": "Limit to one",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slashdot RSS Feed Trigger": {
+      "main": [
+        [
+          {
+            "node": "If relevant content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If relevant content": {
+      "main": [
+        [
+          {
+            "node": "Filter relevant content",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Read Content to Post Google Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter relevant content": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Content to Post Google Sheet": {
+      "main": [
+        [
+          {
+            "node": "Discard already published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit to one": {
+      "main": [
+        [
+          {
+            "node": "Add googleSheet Property",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add googleSheet Property": {
+      "main": [
+        [
+          {
+            "node": "Mark row as published",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "19b76a23-91b2-4a97-a4fe-6325729a75ae",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2fb2d3a9e6ebe99ee93c5ed0c1db885ad068aa11dd135662bafda68250d17ce1"
+  },
+  "id": "iNUdWBmkK7IxcaKT",
+  "tags": []
+}
