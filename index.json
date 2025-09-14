@@ -1,5 +1,5 @@
 {
-  "name": "Slashdot-Tweet",
+  "name": "Slashdot RSS summarize or Google Sheets",
   "nodes": [
     {
       "parameters": {
@@ -9,17 +9,11 @@
       "type": "n8n-nodes-base.twitter",
       "typeVersion": 2,
       "position": [
-        1280,
-        -64
+        80,
+        256
       ],
-      "id": "db8030b0-47d8-4cba-b691-f33505005192",
-      "name": "Create Tweet",
-      "credentials": {
-        "twitterOAuth2Api": {
-          "id": "RI5oGEoMtgDdOw0E",
-          "name": "X account"
-        }
-      }
+      "id": "ef163910-975c-421c-b16b-12c3c07a56dc",
+      "name": "Create Tweet"
     },
     {
       "parameters": {
@@ -28,10 +22,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1488,
-        -64
+        288,
+        256
       ],
-      "id": "a3cfda57-b2c2-4d52-9a3c-5bf2b8616522",
+      "id": "c5695a7f-eaa2-4eae-a4a1-9e2609985813",
       "name": "Wait some time",
       "webhookId": "4a97eabc-37c1-4f4e-848f-f02a765473f5"
     },
@@ -48,17 +42,11 @@
       "type": "n8n-nodes-base.linkedIn",
       "typeVersion": 1,
       "position": [
-        1280,
-        -256
+        80,
+        64
       ],
-      "id": "df02834c-43da-4f87-becf-e7e1aa61f39f",
-      "name": "Create a post",
-      "credentials": {
-        "linkedInOAuth2Api": {
-          "id": "qvXSS8x3K9dVmUtF",
-          "name": "LinkedIn account"
-        }
-      }
+      "id": "6152392d-0856-4afa-b04f-d12688d66ca3",
+      "name": "Create a post"
     },
     {
       "parameters": {
@@ -87,10 +75,10 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        608,
-        192
+        -592,
+        512
       ],
-      "id": "a3bb3ac8-97eb-49e9-b1bd-b5f82ed96045",
+      "id": "e3ec92e3-c586-4b7d-97f8-b58086b51228",
       "name": "Discard already published"
     },
     {
@@ -176,17 +164,11 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1280,
-        192
+        80,
+        512
       ],
-      "id": "c544ca92-0566-4e01-9035-febeb0fb2647",
-      "name": "Mark row as published",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "yXWVRSHovSFYoMKy",
-          "name": "Google Sheets account"
-        }
-      }
+      "id": "b7eaeb85-6475-4ab6-8c03-8cdb6972d864",
+      "name": "Mark row as published"
     },
     {
       "parameters": {
@@ -196,11 +178,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        256,
-        128
+        -944,
+        448
       ],
       "typeVersion": 1,
-      "id": "07ee3307-d87f-4500-8b14-067ea454e8e3",
+      "id": "339e3f07-9bee-48fe-b6d8-4291958e423a",
       "name": "Sticky Note"
     },
     {
@@ -211,11 +193,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1200,
-        -320
+        0,
+        0
       ],
       "typeVersion": 1,
-      "id": "88364677-5008-4c00-8c0a-a105dc4cc5fe",
+      "id": "2f5c65f0-3cf5-47e5-a40a-ad31f208f81c",
       "name": "Sticky Note2"
     },
     {
@@ -234,10 +216,10 @@
       "type": "n8n-nodes-base.rssFeedReadTrigger",
       "typeVersion": 1,
       "position": [
-        -128,
-        0
+        -1328,
+        320
       ],
-      "id": "05c5ad4a-cb80-43c2-b242-0b7322bbc509",
+      "id": "8f10eada-8758-41bf-8e75-073a9c34252f",
       "name": "Slashdot RSS Feed Trigger"
     },
     {
@@ -321,10 +303,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        80,
-        0
+        -1120,
+        320
       ],
-      "id": "9df69aa5-4fdb-4eb1-8f0d-83ed1f88cfdb",
+      "id": "78585fa3-b1ef-4b95-9679-6eb9789aa752",
       "name": "If relevant content"
     },
     {
@@ -408,10 +390,10 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        384,
-        -16
+        -816,
+        304
       ],
-      "id": "3acf324c-e2ac-4359-b0ae-7b96aa558ce7",
+      "id": "8c356656-ea87-4da1-b52d-0183c870cccd",
       "name": "Filter relevant content"
     },
     {
@@ -435,27 +417,21 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        384,
-        192
+        -816,
+        512
       ],
-      "id": "c30f1a9e-6a68-4ec3-aa8a-fbc8159ac132",
-      "name": "Read Content to Post Google Sheet",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "yXWVRSHovSFYoMKy",
-          "name": "Google Sheets account"
-        }
-      }
+      "id": "e599ae88-92a6-49d8-9672-0e47cc28294c",
+      "name": "Read Content to Post Google Sheet"
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        816,
-        192
+        -384,
+        512
       ],
-      "id": "01b60659-d9f0-478f-9e8b-7f3e6216e928",
+      "id": "e29ab760-fa63-4cca-b040-40b5d2fefda3",
       "name": "Limit to one"
     },
     {
@@ -465,10 +441,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1024,
-        192
+        -176,
+        512
       ],
-      "id": "33955d18-ad43-46cc-bb9f-388f5300c18c",
+      "id": "71afb124-7d0c-4eac-9d11-9415de563ba8",
       "name": "Add googleSheet Property"
     },
     {
@@ -485,20 +461,109 @@
       "type": "n8n-nodes-base.twitter",
       "typeVersion": 2,
       "position": [
-        1696,
-        -64
+        496,
+        256
       ],
-      "id": "b10c8499-a601-4ea5-8ef2-fcbac7e06ef9",
-      "name": "Reply post with link",
+      "id": "b2d2f3f9-432a-4c62-afc2-01f24018df0e",
+      "name": "Reply post with link"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://inference.do-ai.run/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpBearerAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "openai-gpt-5-nano"
+            },
+            {
+              "name": "messages",
+              "value": "={{[{\"role\":\"user\",\"content\":\"You're an expert writer and editor. Could you please provide a concise and comprehensive summary of the given text? The summary should capture the main points and key details of the text while conveying the author's intended meaning accurately. Please ensure that the summary is well-organized and easy to read, with clear headings and subheadings to guide the reader through each section. The length of the summary should be appropriate to capture the main points and key details of the text, without including unnecessary information or becoming overly long. The length of the summary should be as short as possible under 250 characters. Also don't use any introductory phrases that may lead to the reader to know the text is AI produced, pretend you're commenting the article that you just read. Don't offer any recommendation at the end. Keep it as short as possible. The text is the following: \" + $json.content.replace(/<[^>]*>?/gm, '') }]}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 50000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -544,
+        160
+      ],
+      "id": "f5b911ee-2abf-4f7f-a6ef-17f3be07a92d",
+      "name": "Summary Using DO's AI models",
       "credentials": {
-        "twitterOAuth2Api": {
-          "id": "RI5oGEoMtgDdOw0E",
-          "name": "X account"
+        "httpBearerAuth": {
+          "id": "GdBEetfikbnq8idW",
+          "name": "Bearer Auth account"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n  item.json.title = $('Filter relevant content').first().json.title\n  item.json.content = $input.first().json.choices[0].message.content\n  item.json.link = $('Filter relevant content').first().json.link\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -336,
+        160
+      ],
+      "id": "771890c2-fadf-4fe2-b3b2-7384d434edc9",
+      "name": "Standarize AI Response"
+    },
+    {
+      "parameters": {
+        "content": "## AI summary\n",
+        "height": 272,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -592,
+        96
+      ],
+      "id": "5cc869f1-ce83-4ce5-b7fc-c3056a692b10",
+      "name": "Sticky Note12"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Summary Using DO's AI models": [
+      {
+        "json": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "message": {
+                "content": "Overview\nTIOBE ranks popularity by engineers, courses, vendors.\nSept Top 8: Python, C++, C, Java, C#, JavaScript, Visual Basic, Go.\nPerl up to #10; Delphi #9; Python #1 (~25.98%). Raku at 129; Perl 5 growth via text processing/CPAN.",
+                "reasoning_content": null,
+                "refusal": null,
+                "role": "assistant"
+              }
+            }
+          ],
+          "created": 1757829819,
+          "id": "",
+          "model": "openai-gpt-5-nano",
+          "object": "chat.completion",
+          "usage": {
+            "completion_tokens": 2898,
+            "prompt_tokens": 866,
+            "total_tokens": 3764
+          }
+        }
+      }
+    ]
+  },
   "connections": {
     "Create Tweet": {
       "main": [
@@ -520,11 +585,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Create a post": {
-      "main": [
-        []
       ]
     },
     "Discard already published": {
@@ -571,12 +631,7 @@
       "main": [
         [
           {
-            "node": "Create a post",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Create Tweet",
+            "node": "Summary Using DO's AI models",
             "type": "main",
             "index": 0
           }
@@ -625,17 +680,43 @@
           }
         ]
       ]
+    },
+    "Summary Using DO's AI models": {
+      "main": [
+        [
+          {
+            "node": "Standarize AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Standarize AI Response": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "19b76a23-91b2-4a97-a4fe-6325729a75ae",
+  "versionId": "49e867ef-1f38-4317-9fa6-711cf8b88ecc",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "2fb2d3a9e6ebe99ee93c5ed0c1db885ad068aa11dd135662bafda68250d17ce1"
+    "instanceId": "b2ac62432dd0864a5526b929b70d4a6bddf185d41cbbc2dcda064820b7dc396a"
   },
-  "id": "iNUdWBmkK7IxcaKT",
+  "id": "6lAPVocwrYKKImig",
   "tags": []
 }
